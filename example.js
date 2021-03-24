@@ -1,8 +1,8 @@
 import { getData } from './index.js'
 
 async function main () {
-  const kml = await getData('json')
-  console.log(kml)
+  const data = await getData('json')
+  console.log(data)
 }
 
 main()
