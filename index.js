@@ -9,6 +9,8 @@ const filename = 'new-jersey-municipalities'
 const geojsonFilePath = path.join(dataDirectoryPath, `${filename}.geojson`)
 const jsonFilePath = path.join(dataDirectoryPath, `${filename}.json`)
 const kmlFilePath = path.join(dataDirectoryPath, `${filename}.kml`)
+const topojsonFilePath = path.join(dataDirectoryPath, `${filename}-topojson.json`)
+const topojsonSimplifiedFilePath = path.join(dataDirectoryPath, `${filename}-simplified-topojson.json`)
 
 /**
  * Get New Jersey municipalities data as GeoJSON, JSON, or KML
@@ -25,6 +27,14 @@ export async function getData (fileType = 'json', encoding='utf8') {
   }
 
   if (fileType === 'kml') {
+    return fs.readFile(kmlFilePath, encoding)
+  }
+
+  if (fileType === 'topojson') {
+    return fs.readFile(kmlFilePath, encoding)
+  }
+
+  if (fileType === 'simplified-topojson') {
     return fs.readFile(kmlFilePath, encoding)
   }
 
