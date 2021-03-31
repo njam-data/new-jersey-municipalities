@@ -31,11 +31,11 @@ export async function getData (fileType = 'json', encoding='utf8') {
   }
 
   if (fileType === 'topojson') {
-    return fs.readFile(kmlFilePath, encoding)
+    return fs.readFile(topojsonFilePath, encoding)
   }
 
   if (fileType === 'simplified-topojson') {
-    return fs.readFile(kmlFilePath, encoding)
+    return fs.readFile(topojsonSimplifiedFilePath, encoding)
   }
 
   throw new Error(`File type ${fileType} not available`)
