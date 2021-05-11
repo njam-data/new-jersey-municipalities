@@ -1,7 +1,7 @@
-import { getData } from './index.js'
+import { getMunicipalities } from './index.js'
 
 async function main () {
-  const data = await getData('json')
+  const data = await getMunicipalities('json')
   console.log(data)
 }
 

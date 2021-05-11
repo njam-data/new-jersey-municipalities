@@ -17,7 +17,7 @@ const topojsonSimplifiedFilePath = path.join(dataDirectoryPath, `${filename}-sim
  * @param {string} fileType - Valid file types: `geojson`, `json`, or `kml`. Default: 'json'
  * @returns {Promise}
  */
-export async function getData (fileType = 'json', encoding='utf8') {
+export async function getMunicipalities (fileType = 'json', encoding='utf8') {
   if (fileType === 'geojson') {
     return readJsonFile(geojsonFilePath)
   }

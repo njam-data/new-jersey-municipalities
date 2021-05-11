@@ -8,9 +8,9 @@ New Jersey open data portal https://njogis-newjersey.opendata.arcgis.com/dataset
 ## Usage
 
 ```js
-import { getData } from '@njam-data/new-jersey-municipalities'
+import { getMunicipalities } from '@njam-data/new-jersey-municipalities'
 
-const geojson = await getData('geojson')
-const json = await getData('json')
-const kml = await getData('kml')
+const geojson = await getMunicipalities('geojson')
+const json = await getMunicipalities('json')
+const kml = await getMunicipalities('kml')
 ```
