@@ -11,13 +11,14 @@ const jsonFilePath = path.join(dataDirectoryPath, `${filename}.json`)
 const kmlFilePath = path.join(dataDirectoryPath, `${filename}.kml`)
 const topojsonFilePath = path.join(dataDirectoryPath, `${filename}-topojson.json`)
 const topojsonSimplifiedFilePath = path.join(dataDirectoryPath, `${filename}-simplified-topojson.json`)
+const svgFilePath = path.join(dataDirectoryPath, `${filename}.svg`)
 
 /**
  * Get New Jersey municipalities data as GeoJSON, JSON, or KML
  * @param {string} fileType - Valid file types: `geojson`, `json`, or `kml`. Default: 'json'
  * @returns {Promise}
  */
-export async function getMunicipalities (fileType = 'json', encoding='utf8') {
+export async function getMunicipalities (fileType = 'json', encoding = 'utf8') {
   if (fileType === 'geojson') {
     return readJsonFile(geojsonFilePath)
   }
@@ -36,6 +37,10 @@ export async function getMunicipalities (fileType = 'json', encoding='utf8') {
 
   if (fileType === 'simplified-topojson') {
     return readJsonFile(topojsonSimplifiedFilePath, encoding)
+  }
+
+  if (fileType === 'svg') {
+    return fs.readFile(svgFilePath, encoding)
   }
 
   throw new Error(`File type ${fileType} not available`)
