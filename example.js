@@ -1,8 +1,11 @@
-import { getMunicipalities } from './index.js'
+import { getMunicipalities, getMunicipalitiesByCounty } from './index.js'
 
 async function main () {
-  const data = await getMunicipalities('json')
-  console.log(data)
+  const counties = await getMunicipalitiesByCounty()
+  console.log('municipalities grouped by county', counties)
+
+  const munis = await getMunicipalities('json')
+  console.log('municipalities as json', munis)
 }
 
 main()

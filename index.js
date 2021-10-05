@@ -1,16 +1,18 @@
 import * as fs from 'fs/promises'
 import * as path from 'path'
 
-import { readJsonFile } from './lib/json.js'
+import * as dirname from '@njam-data/tools/dirname.js'
+import { readJson } from '@njam-data/tools/json.js'
 
-const { pathname: dataDirectoryPath } = new URL('data', import.meta.url)
 const filename = 'new-jersey-municipalities'
 
-const geojsonFilePath = path.join(dataDirectoryPath, `${filename}.geojson`)
-const jsonFilePath = path.join(dataDirectoryPath, `${filename}.json`)
-const kmlFilePath = path.join(dataDirectoryPath, `${filename}.kml`)
-const topojsonFilePath = path.join(dataDirectoryPath, `${filename}-topojson.json`)
-const topojsonSimplifiedFilePath = path.join(dataDirectoryPath, `${filename}-simplified-topojson.json`)
+const dataDirectory = dirname.join(import.meta.url, 'data')
+const geojsonFilePath = path.join(dataDirectory, `${filename}.geojson`)
+const jsonFilePath = path.join(dataDirectory, `${filename}.json`)
+const kmlFilePath = path.join(dataDirectory, `${filename}.kml`)
+const topojsonFilePath = path.join(dataDirectory, `${filename}-topojson.json`)
+const topojsonSimplifiedFilePath = path.join(dataDirectory, `${filename}-simplified-topojson.json`)
+const countiesDirectory = path.join(dataDirectory, 'counties')
 
 /**
  * Get New Jersey municipalities data as GeoJSON, JSON, or KML
@@ -19,11 +21,11 @@ const topojsonSimplifiedFilePath = path.join(dataDirectoryPath, `${filename}-sim
  */
 export async function getMunicipalities (fileType = 'json', encoding='utf8') {
   if (fileType === 'geojson') {
-    return readJsonFile(geojsonFilePath)
+    return readJson(geojsonFilePath)
   }
 
   if (fileType === 'json') {
-    return readJsonFile(jsonFilePath)
+    return readJson(jsonFilePath)
   }
 
   if (fileType === 'kml') {
@@ -31,12 +33,31 @@ export async function getMunicipalities (fileType = 'json', encoding='utf8') {
   }
 
   if (fileType === 'topojson') {
-    return readJsonFile(topojsonFilePath, encoding)
+    return readJson(topojsonFilePath, encoding)
   }
 
   if (fileType === 'simplified-topojson') {
-    return readJsonFile(topojsonSimplifiedFilePath, encoding)
+    return readJson(topojsonSimplifiedFilePath, encoding)
   }
 
   throw new Error(`File type ${fileType} not available`)
+}
+
+export async function getMunicipalitiesByCounty () {
+  const filepaths = await fs.readdir(countiesDirectory)
+
+  const data = filepaths
+    .filter((filepath) => {
+      return filepath.includes('simplified-geojson')
+    })
+    .map(async (filepath) => {
+      const collection = await readJson(path.join(countiesDirectory, filepath))
+
+      return {
+        county: filepath.split('-')[0],
+        data: collection
+      }
+    })
+
+  return Promise.all(data)
 }

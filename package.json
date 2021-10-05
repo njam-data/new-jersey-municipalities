@@ -5,6 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "test": "ava tests/*.js",
     "process": "./scripts/process"
   },
   "author": "",
@@ -20,6 +21,8 @@
   },
   "devDependencies": {
     "@njam-data/new-jersey-counties": "^0.0.1",
-    "@turf/helpers": "^6.5.0"
+    "@turf/helpers": "^6.5.0",
+    "ava": "^3.15.0",
+    "uvu": "^0.5.1"
   }
 }
