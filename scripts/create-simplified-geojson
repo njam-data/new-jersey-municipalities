@@ -1,0 +1,10 @@
+#! /bin/bash
+
+npx topo2geo geojson=data/new-jersey-municipalities-simplified-geojson.json < data/new-jersey-municipalities-simplified-topojson.json
+
+cd data/counties
+for filename in *-simplified-topojson.json; do
+  IFS='-'
+  read -ra match <<< "$filename"
+  npx topo2geo json=$match-simplified-geojson.json < $match-simplified-topojson.json 
+done
