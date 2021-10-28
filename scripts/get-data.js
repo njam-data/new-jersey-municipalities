@@ -79,6 +79,7 @@ for (const county of counties) {
         county: muni.properties.county,
         mun_code: muni.properties.mun_code,
         mun_label: muni.properties.mun_label,
+        census2010: muni.properties.census2010,
         name: muni.properties.name
       },
       geometry: muni.geometry
